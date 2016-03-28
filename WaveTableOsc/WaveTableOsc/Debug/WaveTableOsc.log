@@ -1,0 +1,36 @@
+﻿  main.cpp
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(106): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(114): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(125): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(126): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(147): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(158): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(163): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(174): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(175): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(201): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(209): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(221): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(222): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(238): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(238): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(242): error C3892: 'v': you cannot assign to a variable that is const
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(243): error C3892: 'v': you cannot assign to a variable that is const
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(244): error C3892: 'v': you cannot assign to a variable that is const
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(245): error C3892: 'v': you cannot assign to a variable that is const
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(246): error C3892: 'v': you cannot assign to a variable that is const
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(247): error C3892: 'v': you cannot assign to a variable that is const
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(248): error C3892: 'v': you cannot assign to a variable that is const
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(251): error C2131: expression did not evaluate to a constant
+  c:\users\barth\documents\git\wavetableosc\source\main.cpp(251): note: failure was caused by non-constant arguments or reference to a non-constant symbol
+  c:\users\barth\documents\git\wavetableosc\source\main.cpp(251): note: see usage of 'tableLen'
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(255): error C3892: 'maxHarms': you cannot assign to a variable that is const
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(260): error C3892: 'tableLen': you cannot assign to a variable that is const
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(284): error C2131: expression did not evaluate to a constant
+  c:\users\barth\documents\git\wavetableosc\source\main.cpp(284): note: failure was caused by non-constant arguments or reference to a non-constant symbol
+  c:\users\barth\documents\git\wavetableosc\source\main.cpp(284): note: see usage of 'len'
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(286): error C3863: array type 'float [len]' is not assignable
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(291): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(349): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(479): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note: see declaration of 'fopen'
