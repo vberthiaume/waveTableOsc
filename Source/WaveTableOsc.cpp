@@ -50,7 +50,7 @@ WaveTableOsc::~WaveTableOsc(void) {
 //
 // returns 0 upon success, or the number of wavetables if no more room is available
 //
-int WaveTableOsc::addWaveTable(int len, float *waveTableIn, double topFreq) {
+int WaveTableOsc::addWaveTable(int len, std::vector<float> waveTableIn, double topFreq) {
     if (this->numWaveTables < numWaveTableSlots) {
         float *waveTable = this->waveTables[this->numWaveTables].waveTable = new float[len];
         this->waveTables[this->numWaveTables].waveTableLen = len;

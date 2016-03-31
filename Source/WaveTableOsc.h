@@ -20,7 +20,7 @@
 #define Test_WaveTableOsc_h
 
 #define doLinearInterp 1
-
+#include <vector>
 typedef struct {
     double topFreq;
     int waveTableLen;
@@ -47,7 +47,7 @@ public:
     void updatePhase(void);
     float getOutput(void);
     float getOutputMinusOffset(void);
-    int addWaveTable(int len, float *waveTableIn, double topFreq);
+    int addWaveTable(int len, std::vector<float> waveTableIn, double topFreq);
 };
 
 

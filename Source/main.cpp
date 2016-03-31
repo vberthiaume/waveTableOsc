@@ -22,6 +22,7 @@
 // for time testing
 #include <ctime>
 #include <iostream>
+#include <vector>
 using namespace std;
 
 #include <math.h>
@@ -87,9 +88,12 @@ int main(void) {
 
 
 void writeFloatSound(int len, float *wave);
-void fft(int N, myFloat *ar, myFloat *ai);
-void defineSawtooth(int len, int numHarmonics, myFloat *ar, myFloat *ai);
-float makeWaveTable(WaveTableOsc *osc, int len, myFloat *ar, myFloat *ai, myFloat scale, double topFreq);
+//void fft(int N, myFloat *ar, myFloat *ai);
+//void defineSawtooth(int len, int numHarmonics, myFloat *ar, myFloat *ai);
+//float makeWaveTable(WaveTableOsc *osc, int len, myFloat *ar, myFloat *ai, myFloat scale, double topFreq);
+void fft(int N, vector<myFloat> ar, vector<myFloat> ai);
+void defineSawtooth(int len, int numHarmonics, vector<myFloat> ar, vector<myFloat> ai);
+float makeWaveTable(WaveTableOsc *osc, int len, vector<myFloat> ar, vector<myFloat> ai, myFloat scale, double topFreq);
 void setSawtoothOsc(WaveTableOsc *osc, float baseFreq);
 
 
@@ -142,7 +146,7 @@ void testPWM(void) {
     // pwm
     WaveTableOsc *mod = new WaveTableOsc();
     const int sineTableLen = 2048;
-    float sineTable[sineTableLen];
+    vector<float> sineTable(sineTableLen);
     for (int idx = 0; idx < sineTableLen; ++idx)
         sineTable[idx] = sin((float)idx / sineTableLen * M_PI * 2);
     mod->addWaveTable(sineTableLen, sineTable, 1.0);
@@ -235,10 +239,10 @@ void testThreeOsc(void) {
 //
 void setSawtoothOsc(WaveTableOsc *osc, float baseFreq) {    
     // calc number of harmonics where the highest harmonic baseFreq and lowest alias an octave higher would meet
-    const int maxHarms = sampleRate / (3.0 * baseFreq) + 0.5;
+    int maxHarms = sampleRate / (3.0 * baseFreq) + 0.5;
 
     // round up to nearest power of two
-    const unsigned int v = maxHarms;
+    unsigned int v = maxHarms;
     v--;            // so we don't go up if already a power of 2
     v |= v >> 1;    // roll the highest bit into all lower bits...
     v |= v >> 2;
@@ -246,9 +250,11 @@ void setSawtoothOsc(WaveTableOsc *osc, float baseFreq) {
     v |= v >> 8;
     v |= v >> 16;
     v++;            // and increment to power of 2
-    const int tableLen = v * 2 * overSamp;  // double for the sample rate, then oversampling
+    int tableLen = v * 2 * overSamp;  // double for the sample rate, then oversampling
 
-    myFloat ar[tableLen], ai[tableLen];   // for ifft
+    //myFloat ar[tableLen], ai[tableLen];   // for ifft
+	vector<myFloat> ar(tableLen);
+	vector<myFloat> ai(tableLen);   
 
     double topFreq = baseFreq * 2.0 / sampleRate;
     myFloat scale = 0.0;
@@ -266,7 +272,7 @@ void setSawtoothOsc(WaveTableOsc *osc, float baseFreq) {
 // if scale is 0, auto-scales
 // returns scaling factor (0.0 if failure), and wavetable in ai array
 //
-float makeWaveTable(WaveTableOsc *osc, int len, myFloat *ar, myFloat *ai, myFloat scale, double topFreq) {
+float makeWaveTable(WaveTableOsc *osc, int len, vector<myFloat> ar, vector<myFloat> ai, myFloat scale, double topFreq) {
     fft(len, ar, ai);
     
     if (scale == 0.0) {
@@ -281,7 +287,7 @@ float makeWaveTable(WaveTableOsc *osc, int len, myFloat *ar, myFloat *ai, myFloa
     }
     
     // normalize
-    float wave[len];
+    vector<float> wave(len);
     for (int idx = 0; idx < len; idx++)
         wave[idx] = ai[idx] * scale;
         
@@ -299,7 +305,7 @@ float makeWaveTable(WaveTableOsc *osc, int len, myFloat *ar, myFloat *ai, myFloa
 //
 // (could modify for real data, could use a template version, blah blah--just keeping it short)
 //
-void fft(int N, myFloat *ar, myFloat *ai)
+void fft(int N, vector<myFloat> ar, vector<myFloat> ai)
 /*
  in-place complex fft
  
@@ -377,8 +383,9 @@ void fft(int N, myFloat *ar, myFloat *ai)
 //
 // prepares sawtooth harmonics for ifft
 //
-void defineSawtooth(int len, int numHarmonics, myFloat *ar, myFloat *ai) {
-    if (numHarmonics > (len >> 1))
+//void defineSawtooth(int len, int numHarmonics, myFloat *ar, myFloat *ai) {
+void defineSawtooth(int len, int numHarmonics, vector<myFloat> ar, vector<myFloat> ai) {
+	if (numHarmonics > (len >> 1))
         numHarmonics = (len >> 1);
     
     // clear
@@ -476,8 +483,10 @@ void writeFloatSound(int len, float *wave) {
     
 	// write array to file    
 	FILE *pFile;
-	pFile = fopen("oscillator test.wav", "wb");
-	if (pFile) {
+	//pFile = fopen("oscillator test.wav", "wb");
+	errno_t err;
+	err = fopen_s(&pFile, "oscillator test.wav", "wb");
+	if (err != 0) {
         fwrite(bytes, 1, sizeof(bytes), pFile);
         fwrite(wave, sizeof(*wave), len, pFile);            // note: little endian
 		fclose(pFile);
