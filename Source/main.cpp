@@ -23,6 +23,7 @@
 #include <ctime>
 #include <iostream>
 #include <vector>
+#include <assert.h>
 using namespace std;
 
 #include <math.h>
@@ -88,12 +89,9 @@ int main(void) {
 
 
 void writeFloatSound(int len, float* wave);
-//void fft(int N, myFloat *ar, myFloat *ai);
-//void defineSawtooth(int len, int numHarmonics, myFloat *ar, myFloat *ai);
-//float makeWaveTable(WaveTableOsc *osc, int len, myFloat *ar, myFloat *ai, myFloat scale, double topFreq);
-void fft(int N, vector<myFloat> ar, vector<myFloat> ai);
-void defineSawtooth(int len, int numHarmonics, vector<myFloat> ar, vector<myFloat> ai);
-float makeWaveTable(WaveTableOsc *osc, int len, vector<myFloat> ar, vector<myFloat> ai, myFloat scale, double topFreq);
+void fft(int N, vector<myFloat> &ar,vector<myFloat> &ai);
+void defineSawtooth(int len, int numHarmonics, vector<myFloat> &ar, vector<myFloat> &ai);
+float makeWaveTable(WaveTableOsc *osc, int len, vector<myFloat> &ar, vector<myFloat> &ai, myFloat scale, double topFreq);
 void setSawtoothOsc(WaveTableOsc *osc, float baseFreq);
 
 
@@ -126,7 +124,7 @@ void testSawSweep(void) {
     cout << "Elapsed time: " << elapsed<< "\n";
     
     // q&d fade to avoid tick at end (0.05s)
-    for (int count = sampleRate * 0.05; count >= 0; --count) {
+    for (int count = sampleRate * 0.05; count > 0; --count) {
         soundBuf[numSamples-count] *= count / (sampleRate * 0.05);
     }
     
@@ -269,7 +267,7 @@ void setSawtoothOsc(WaveTableOsc *osc, float baseFreq) {
 // if scale is 0, auto-scales
 // returns scaling factor (0.0 if failure), and wavetable in ai array
 //
-float makeWaveTable(WaveTableOsc *osc, int len, vector<myFloat> ar, vector<myFloat> ai, myFloat scale, double topFreq) {
+float makeWaveTable(WaveTableOsc *osc, int len, vector<myFloat> &ar, vector<myFloat> &ai, myFloat scale, double topFreq) {
     fft(len, ar, ai);
     
     if (scale == 0.0) {
@@ -302,7 +300,7 @@ float makeWaveTable(WaveTableOsc *osc, int len, vector<myFloat> ar, vector<myFlo
 //
 // (could modify for real data, could use a template version, blah blah--just keeping it short)
 //
-void fft(int N, vector<myFloat> ar, vector<myFloat> ai)
+void fft(int N, vector<myFloat> &ar, vector<myFloat> &ai)
 /*
  in-place complex fft
  
@@ -380,8 +378,7 @@ void fft(int N, vector<myFloat> ar, vector<myFloat> ai)
 //
 // prepares sawtooth harmonics for ifft
 //
-//void defineSawtooth(int len, int numHarmonics, myFloat *ar, myFloat *ai) {
-void defineSawtooth(int len, int numHarmonics, vector<myFloat> ar, vector<myFloat> ai) {
+void defineSawtooth(int len, int numHarmonics, vector<myFloat> &ar, vector<myFloat> &ai) {
 	if (numHarmonics > (len >> 1))
         numHarmonics = (len >> 1);
     
@@ -480,13 +477,16 @@ void writeFloatSound(int len, float* wave) {
     
 	// write array to file    
 	FILE *pFile;
-	//pFile = fopen("oscillator test.wav", "wb");
-	errno_t err;
-	err = fopen_s(&pFile, "oscillator test.wav", "wb");
-	if (err != 0) {
+	pFile = fopen("oscillator test.wav", "wb");
+	//errno_t err;
+	//err = fopen_s(&pFile, "oscillator test.wav", "wb");
+	//if (err != 0) {
+	if (pFile) {
         fwrite(bytes, 1, sizeof(bytes), pFile);
         fwrite(wave, sizeof(*wave), len, pFile);            // note: little endian
 		fclose(pFile);
+	} else {
+		assert(0);
 	}
 	
     return;
