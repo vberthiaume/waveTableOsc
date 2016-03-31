@@ -87,7 +87,7 @@ int main(void) {
 
 
 
-void writeFloatSound(int len, float *wave);
+void writeFloatSound(int len, float* wave);
 //void fft(int N, myFloat *ar, myFloat *ai);
 //void defineSawtooth(int len, int numHarmonics, myFloat *ar, myFloat *ai);
 //float makeWaveTable(WaveTableOsc *osc, int len, myFloat *ar, myFloat *ai, myFloat scale, double topFreq);
@@ -108,7 +108,7 @@ void testSawSweep(void) {
     
     // run the oscillator
     const int numSamples = sampleRate * numSecs;
-    float *soundBuf = new float [numSamples];
+    vector<float> soundBuf(numSamples);
     
     double freqVal = 20.0 / sampleRate;
     double freqMult = 1.0 + (log(20000.0 / sampleRate) - log(freqVal)) / numSamples;
@@ -130,8 +130,7 @@ void testSawSweep(void) {
         soundBuf[numSamples-count] *= count / (sampleRate * 0.05);
     }
     
-    writeFloatSound(numSamples, soundBuf);
-    delete [] soundBuf;
+    writeFloatSound(numSamples, &soundBuf[0]);
     
     return;
 }
@@ -160,7 +159,7 @@ void testPWM(void) {
     
     // run the oscillator
     const int numSamples = sampleRate * numSecs;
-    float *soundBuf = new float [numSamples];
+    vector<float>soundBuf(numSamples);
     
     for (int idx = 0; idx < numSamples; idx ++) {
         osc->setPhaseOffset((mod->getOutput() * 0.95 + 1.0) * 0.5);
@@ -179,8 +178,7 @@ void testPWM(void) {
         soundBuf[numSamples-count] *= count / (sampleRate * 0.05);
     }
     
-    writeFloatSound(numSamples, soundBuf);
-    delete [] soundBuf;
+    writeFloatSound(numSamples, &soundBuf[0]);
     
     return;
 }
@@ -203,7 +201,7 @@ void testThreeOsc(void) {
     
     // run the oscillator
     const int numSamples = sampleRate * numSecs;
-    float *soundBuf = new float [numSamples];
+    vector<float> soundBuf(numSamples);
     
     osc1->setFrequency(111.0*.5/sampleRate);
     osc2->setFrequency(112.0*.5/sampleRate);
@@ -226,8 +224,7 @@ void testThreeOsc(void) {
         soundBuf[numSamples-count] *= count / (sampleRate * 0.05);
     }
     
-    writeFloatSound(numSamples, soundBuf);
-    delete [] soundBuf;
+    writeFloatSound(numSamples, &soundBuf[0]);
     
     return;
 }
@@ -453,7 +450,7 @@ inline void write2Bytes(uint32_t val, uint8_t **bytePtr) {
 	*(*bytePtr)++ = val >> 8;
 }
 
-void writeFloatSound(int len, float *wave) {    
+void writeFloatSound(int len, float* wave) {    
 	const int numChannels = 1;
     
 	// build file
