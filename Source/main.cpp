@@ -57,7 +57,7 @@ enum {
     c_testThreeOsc,
     c_testSawSweep
 };
-const int testType = c_testSawSweep;    // set this to select the test to run
+const int testType = c_testThreeOsc;//c_testSawSweep;    // set this to select the test to run
 
 // end tweak section
 
@@ -172,7 +172,7 @@ void testPWM(void) {
     cout << "Elapsed time: " << elapsed<< "\n";
     
     // q&d fade to avoid tick at end (0.05s)
-    for (int count = sampleRate * 0.05; count >= 0; --count) {
+    for (int count = sampleRate * 0.05; count > 0; --count) {
         soundBuf[numSamples-count] *= count / (sampleRate * 0.05);
     }
     
@@ -218,7 +218,7 @@ void testThreeOsc(void) {
     cout << "Elapsed time: " << elapsed<< "\n";
     
     // q&d fade to avoid tick at end (0.05s)
-    for (int count = sampleRate * 0.05; count >= 0; --count) {
+    for (int count = sampleRate * 0.05; count > 0; --count) {
         soundBuf[numSamples-count] *= count / (sampleRate * 0.05);
     }
     
