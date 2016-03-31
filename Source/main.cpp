@@ -57,7 +57,7 @@ enum {
     c_testThreeOsc,
     c_testSawSweep
 };
-const int testType = c_testThreeOsc;//c_testSawSweep;    // set this to select the test to run
+const int testType = c_testSawSweep;    // set this to select the test to run
 
 // end tweak section
 
@@ -247,14 +247,14 @@ void setSawtoothOsc(WaveTableOsc *osc, float baseFreq) {
     v++;            // and increment to power of 2
     int tableLen = v * 2 * overSamp;  // double for the sample rate, then oversampling
 
-    //myFloat ar[tableLen], ai[tableLen];   // for ifft
+    // for ifft
 	vector<myFloat> ar(tableLen);
 	vector<myFloat> ai(tableLen);   
 
     double topFreq = baseFreq * 2.0 / sampleRate;
     myFloat scale = 0.0;
     for (; maxHarms >= 1; maxHarms >>= 1) {
-        defineSawtooth(tableLen, maxHarms, ar, ai);
+        defineSawtooth(tableLen, maxHarms, ar, ai);	//after this, first half of ar is positive harmonic amplitudes, second half is same but negative, and ai is all zeros.
         scale = makeWaveTable(osc, tableLen, ar, ai, scale, topFreq);
         topFreq *= 2;
         if (tableLen > constantRatioLimit) // variable table size (constant oversampling but with minimum table size)
@@ -388,11 +388,11 @@ void defineSawtooth(int len, int numHarmonics, vector<myFloat> &ar, vector<myFlo
         ar[idx] = 0;
     }
 
-    // sawtooth
+    // sawtooth. fill the ar vector, which I presume is the amplitude of real harmonics
     for (int idx = 1, jdx = len - 1; idx <= numHarmonics; idx++, jdx--) {
-        myFloat temp = -1.0 / idx;
-        ar[idx] = -temp;
-        ar[jdx] = temp;
+        myFloat temp = -1.0 / idx;	//for sawtooh, harmonic amplitude decreases as their index increases.
+        ar[idx] = -temp;			//the firt half will be positive
+        ar[jdx] = temp;				//the second half negative... why?
     }
 
     // examples of other waves
