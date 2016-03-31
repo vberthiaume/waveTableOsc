@@ -268,8 +268,8 @@ void setSawtoothOsc(WaveTableOsc *osc, float baseFreq) {
 // returns scaling factor (0.0 if failure), and wavetable in ai array
 //
 float makeWaveTable(WaveTableOsc *osc, int len, vector<myFloat> &ar, vector<myFloat> &ai, myFloat scale, double topFreq) {
-    fft(len, ar, ai);
-    
+    fft(len, ar, ai);	//after this, ai contains the wave form, produced by an ifft I assume, and ar contains... noise? see waveTableOscFFtOutput.xlsx in dropbox/sBMP4
+    //NOW HERE
     if (scale == 0.0) {
         // calc normal
         myFloat max = 0;
