@@ -27,7 +27,6 @@
 using namespace std;
 
 #include <math.h>
-
 #include "WaveTableOsc.h"
 
 #ifndef M_PI
@@ -94,11 +93,13 @@ void setSawtoothOsc(WaveTableOsc *osc, float baseFreq);
 
 // sawtooth sweep
 void testSawSweep(void) {
+
+	//------------- INITIALIZE -------------
 	//initialize the wavetable stuff to 0
     WaveTableOsc *osc = new WaveTableOsc();
 	//set various things for the wavetable, unclear why not done in constructor
     setSawtoothOsc(osc, baseFrequency);
-    
+
     // time test
     clock_t start, finish;
     start = clock();
@@ -110,8 +111,11 @@ void testSawSweep(void) {
     double freqVal = 20.0 / sampleRate;
     double freqMult = 1.0 + (log(20000.0 / sampleRate) - log(freqVal)) / numSamples;
     
+	//------------- FILL soundBuf WITH SAMPLES FROM THE SWEEP --------------
     for (int idx = 0; idx < numSamples; idx ++) {
+		//tell the osc which frequency we're at
         osc->setFrequency(freqVal);
+		//get the current sample, at volume gainMult
         soundBuf[idx] = osc->getOutput() * gainMult;
         osc->updatePhase(); 
         freqVal *= freqMult;    // exponential frequency sweep
@@ -262,13 +266,12 @@ void setSawtoothOsc(WaveTableOsc *osc, float baseFreq) {
 		//from the ar partials, make a wave in ai, then store it in osc. keep scale so that we can reuse it for the next maxHarm, so that we have a normalized volume accross wavetables
         scale = makeWaveTable(osc, tableLen, ar, ai, scale, topFreq);
         topFreq *= 2;
-		//not sure, doesn't matter
+		//not sure, doesn't matter, not hit with default values
         if (tableLen > constantRatioLimit){ // variable table size (constant oversampling but with minimum table size)
             tableLen /= 2;
 		}
     }
 }
-
 
 //
 // if scale is 0, auto-scales

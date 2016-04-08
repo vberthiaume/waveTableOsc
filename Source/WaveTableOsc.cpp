@@ -78,17 +78,18 @@ int WaveTableOsc::addWaveTable(int len, std::vector<float> waveTableIn, double t
 float WaveTableOsc::getOutput() {
     // grab the appropriate wavetable
     int waveTableIdx = 0;
-    while ((this->phaseInc >= this->waveTables[waveTableIdx].topFreq) && (waveTableIdx < (this->numWaveTables - 1))) {
+	//TODO: why is phaseInc compared to the topFreq?
+    while ((phaseInc >= waveTables[waveTableIdx].topFreq) && (waveTableIdx < (numWaveTables - 1))) {
         ++waveTableIdx;
     }
-    waveTable *waveTable = &this->waveTables[waveTableIdx];
+    waveTable *waveTable = &waveTables[waveTableIdx];
 
 #if !doLinearInterp
     // truncate
-    return waveTable->waveTable[int(this->phasor * waveTable->waveTableLen)];
+    return waveTable->waveTable[int(phasor * waveTable->waveTableLen)];
 #else
     // linear interpolation
-    double temp = this->phasor * waveTable->waveTableLen;
+    double temp = phasor * waveTable->waveTableLen;
     int intPart = temp;
     double fracPart = temp - intPart;
     float samp0 = waveTable->waveTable[intPart];

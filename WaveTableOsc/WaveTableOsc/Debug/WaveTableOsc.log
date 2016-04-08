@@ -1,20 +1,28 @@
 ﻿  main.cpp
-c:\users\barth\documents\git\wavetableosc\source\main.cpp(107): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\barth\documents\git\wavetableosc\source\main.cpp(115): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\barth\documents\git\wavetableosc\source\main.cpp(126): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\barth\documents\git\wavetableosc\source\main.cpp(127): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
-c:\users\barth\documents\git\wavetableosc\source\main.cpp(147): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\barth\documents\git\wavetableosc\source\main.cpp(158): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\barth\documents\git\wavetableosc\source\main.cpp(163): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\barth\documents\git\wavetableosc\source\main.cpp(174): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\barth\documents\git\wavetableosc\source\main.cpp(175): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
-c:\users\barth\documents\git\wavetableosc\source\main.cpp(200): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\barth\documents\git\wavetableosc\source\main.cpp(208): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\barth\documents\git\wavetableosc\source\main.cpp(220): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\barth\documents\git\wavetableosc\source\main.cpp(221): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
-c:\users\barth\documents\git\wavetableosc\source\main.cpp(237): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\barth\documents\git\wavetableosc\source\main.cpp(294): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\barth\documents\git\wavetableosc\source\main.cpp(299): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-c:\users\barth\documents\git\wavetableosc\source\main.cpp(355): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(108): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(119): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(130): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(131): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(151): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(162): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(167): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(178): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(179): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(204): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(212): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(224): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(225): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(241): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(297): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(302): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(358): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  WaveTableOsc.cpp
+c:\users\barth\documents\git\wavetableosc\source\wavetableosc.cpp(93): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\wavetableosc.cpp(100): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\wavetableosc.cpp(130): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\wavetableosc.cpp(136): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\wavetableosc.cpp(143): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\wavetableosc.cpp(150): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
   WaveTableOsc.vcxproj -> C:\Users\barth\Documents\git\WaveTableOsc\WaveTableosc\Debug\WaveTableOsc.exe
   WaveTableOsc.vcxproj -> C:\Users\barth\Documents\git\WaveTableOsc\WaveTableosc\Debug\WaveTableOsc.pdb (Partial PDB)
