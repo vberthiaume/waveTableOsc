@@ -100,15 +100,19 @@ void testSawSweep(void) {
 	//set various things for the wavetable, unclear why not done in constructor
     setSawtoothOsc(osc, baseFrequency);
 
-	//----------------------------- RANDOM INIT SPECIFIC TO SWEEP -------------
-    // time stuff
-    clock_t start, finish;
-    start = clock();
-    // figure sweep details
-    const int numSamples = sampleRate * numSecs;
-    vector<float> soundBuf(numSamples);
-    double freqVal = 20.0 / sampleRate;
-    double freqMult = 1.0 + (log(20000.0 / sampleRate) - log(freqVal)) / numSamples;
+	////----------------------------- RANDOM INIT SPECIFIC TO SWEEP -------------
+ //   // time stuff
+ //   clock_t start, finish;
+ //   start = clock();
+ //   // figure sweep details
+ //   const int numSamples = sampleRate * numSecs;
+ //   vector<float> soundBuf(numSamples);
+ //   double freqVal = 20.0 / sampleRate;
+ //   double freqMult = 1.0 + (log(20000.0 / sampleRate) - log(freqVal)) / numSamples;
+
+	const int numSamples = sampleRate * numSecs;
+	vector<float> soundBuf(numSamples);
+	double freqVal = 440.0 / sampleRate;
     
 	//------------- FILL SOUNDBUF WITH SAMPLES FROM THE SWEEP -----------------
     for (int idx = 0; idx < numSamples; idx ++) {
@@ -118,15 +122,15 @@ void testSawSweep(void) {
         soundBuf[idx] = osc->getOutput() * gainMult;
 		//increase the phase by phaseInc
         osc->updatePhase(); 
-		//increase frequency
-        freqVal *= freqMult;    // exponential frequency sweep
+		////increase frequency
+  //      freqVal *= freqMult;    // exponential frequency sweep
     }
     
-	//----------------------------- TIME STUFF -----------------------------
-    // time test
-    finish = clock();
-    double elapsed = (finish - start)/(double)CLOCKS_PER_SEC;
-    cout << "Elapsed time: " << elapsed<< "\n";
+	////----------------------------- TIME STUFF -----------------------------
+ //   // time test
+ //   finish = clock();
+ //   double elapsed = (finish - start)/(double)CLOCKS_PER_SEC;
+ //   cout << "Elapsed time: " << elapsed<< "\n";
     
 	//------------------- WRITE SOUNDBUF TO FILE -----------------------------
     // q&d fade to avoid tick at end (0.05s)
