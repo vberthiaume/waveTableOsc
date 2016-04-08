@@ -13,8 +13,8 @@ c:\users\barth\documents\git\wavetableosc\source\main.cpp(208): warning C4244: '
 c:\users\barth\documents\git\wavetableosc\source\main.cpp(220): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 c:\users\barth\documents\git\wavetableosc\source\main.cpp(221): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
 c:\users\barth\documents\git\wavetableosc\source\main.cpp(237): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\barth\documents\git\wavetableosc\source\main.cpp(292): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\barth\documents\git\wavetableosc\source\main.cpp(297): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(294): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\barth\documents\git\wavetableosc\source\main.cpp(299): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
 c:\users\barth\documents\git\wavetableosc\source\main.cpp(355): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
   WaveTableOsc.vcxproj -> C:\Users\barth\Documents\git\WaveTableOsc\WaveTableosc\Debug\WaveTableOsc.exe
   WaveTableOsc.vcxproj -> C:\Users\barth\Documents\git\WaveTableOsc\WaveTableosc\Debug\WaveTableOsc.pdb (Partial PDB)

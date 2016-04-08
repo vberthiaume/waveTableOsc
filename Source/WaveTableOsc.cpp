@@ -54,11 +54,11 @@ WaveTableOsc::~WaveTableOsc(void) {
 // returns 0 upon success, or the number of wavetables if no more room is available
 //
 int WaveTableOsc::addWaveTable(int len, std::vector<float> waveTableIn, double topFreq) {
-    if (this->numWaveTables < numWaveTableSlots) {
-        float *waveTable = this->waveTables[this->numWaveTables].waveTable = new float[len];
-        this->waveTables[this->numWaveTables].waveTableLen = len;
-        this->waveTables[this->numWaveTables].topFreq = topFreq;
-        ++this->numWaveTables;
+    if (numWaveTables < numWaveTableSlots) {
+        float *waveTable = waveTables[numWaveTables].waveTable = new float[len];
+        waveTables[numWaveTables].waveTableLen = len;
+        waveTables[numWaveTables].topFreq = topFreq;
+        ++numWaveTables;
         
         // fill in wave
         for (long idx = 0; idx < len; idx++)
@@ -66,7 +66,7 @@ int WaveTableOsc::addWaveTable(int len, std::vector<float> waveTableIn, double t
         
         return 0;
     }
-    return this->numWaveTables;
+    return numWaveTables;
 }
 
 

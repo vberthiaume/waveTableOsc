@@ -257,13 +257,15 @@ void setSawtoothOsc(WaveTableOsc *osc, float baseFreq) {
     double topFreq = baseFreq * 2.0 / sampleRate;	//topFreq = 0.00090702947845804993
     myFloat scale = 0.0;
     for (; maxHarms >= 1; maxHarms /= 2) {
-		//after this, first half of ar is positive harmonic amplitudes, second half is same but negative, and ai is all zeros.
+		//fill ar with partial amplitudes for a sawtooth. This will be ifft'ed to get a wave
         defineSawtooth(tableLen, maxHarms, ar, ai);	
-
+		//from the ar partials, make a wave in ai, then store it in osc. keep scale so that we can reuse it for the next maxHarm, so that we have a normalized volume accross wavetables
         scale = makeWaveTable(osc, tableLen, ar, ai, scale, topFreq);
         topFreq *= 2;
-        if (tableLen > constantRatioLimit) // variable table size (constant oversampling but with minimum table size)
-            tableLen >>= 1;
+		//not sure, doesn't matter
+        if (tableLen > constantRatioLimit){ // variable table size (constant oversampling but with minimum table size)
+            tableLen /= 2;
+		}
     }
 }
 
@@ -274,7 +276,7 @@ void setSawtoothOsc(WaveTableOsc *osc, float baseFreq) {
 //
 float makeWaveTable(WaveTableOsc *osc, int len, vector<myFloat> &ar, vector<myFloat> &ai, myFloat scale, double topFreq) {
     fft(len, ar, ai);	//after this, ai contains the wave form, produced by an ifft I assume, and ar contains... noise? see waveTableOscFFtOutput.xlsx in dropbox/sBMP4
-    //NOW HERE
+    //if no scale was supplied, find maximum sample amplitude, then derive scale
     if (scale == 0.0) {
         // calc normal
         myFloat max = 0;
@@ -329,8 +331,9 @@ void fft(int N, vector<myFloat> &ar, vector<myFloat> &ai)
     NM1 = N - 1;
     TEMP = N; /* get M = log N */
     M = 0;
-    while (TEMP >>= 1) ++M;
-    
+    while (TEMP >>= 1){
+		++M;
+	}
     /* shuffle */
     j = 1;
     for (i = 1; i <= NM1; i++) {
@@ -342,16 +345,13 @@ void fft(int N, vector<myFloat> &ar, vector<myFloat> &ai)
             ai[j-1] = ai[i-1];
             ai[i-1] = t;
         }
-        
         k = NV2;             /* bit-reversed counter */
         while(k < j) {
             j -= k;
             k /= 2;
-        }
-        
+        }  
         j += k;
     }
-    
     LE = 1.;
     for (L = 1; L <= M; L++) {            // stage L
         LE1 = LE;                         // (LE1 = LE/2) 
