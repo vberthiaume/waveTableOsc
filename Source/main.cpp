@@ -86,18 +86,17 @@ int main(void) {
     return 0;
 }
 
-
-
 void writeFloatSound(int len, float* wave);
 void fft(int N, vector<myFloat> &ar,vector<myFloat> &ai);
 void defineSawtooth(int len, int numHarmonics, vector<myFloat> &ar, vector<myFloat> &ai);
 float makeWaveTable(WaveTableOsc *osc, int len, vector<myFloat> &ar, vector<myFloat> &ai, myFloat scale, double topFreq);
 void setSawtoothOsc(WaveTableOsc *osc, float baseFreq);
 
-
 // sawtooth sweep
 void testSawSweep(void) {
+	//initialize the wavetable stuff to 0
     WaveTableOsc *osc = new WaveTableOsc();
+	//set various things for the wavetable, unclear why not done in constructor
     setSawtoothOsc(osc, baseFrequency);
     
     // time test
@@ -232,10 +231,12 @@ void testThreeOsc(void) {
 //
 // make set of wavetables for sawtooth oscillator
 //
-void setSawtoothOsc(WaveTableOsc *osc, float baseFreq) {    
+void setSawtoothOsc(WaveTableOsc *osc, float baseFreq) { 
+	//TODO: understand this
     // calc number of harmonics where the highest harmonic baseFreq and lowest alias an octave higher would meet
-    int maxHarms = sampleRate / (3.0 * baseFreq) + 0.5;
+    int maxHarms = sampleRate / (3.0 * baseFreq) + 0.5;	//maxHarms = 735
 
+	//TODO: find less opaque way of doing this, check aspma notes
     // round up to nearest power of two
     unsigned int v = maxHarms;
     v--;            // so we don't go up if already a power of 2
@@ -245,16 +246,20 @@ void setSawtoothOsc(WaveTableOsc *osc, float baseFreq) {
     v |= v >> 8;
     v |= v >> 16;
     v++;            // and increment to power of 2
-    int tableLen = v * 2 * overSamp;  // double for the sample rate, then oversampling
+    int tableLen = v * 2 * overSamp;  // double for the sample rate, then oversampling, tablelen = 4096
 
     // for ifft
-	vector<myFloat> ar(tableLen);
+	vector<myFloat> ar(tableLen);	//is this real amplitude and ai imaginary amplitude?
 	vector<myFloat> ai(tableLen);   
 
-    double topFreq = baseFreq * 2.0 / sampleRate;
+	//calculate topFrequency based on Nyquist and base frequency... 
+	//TODO: why is base frequency relevant here?
+    double topFreq = baseFreq * 2.0 / sampleRate;	//topFreq = 0.00090702947845804993
     myFloat scale = 0.0;
-    for (; maxHarms >= 1; maxHarms >>= 1) {
-        defineSawtooth(tableLen, maxHarms, ar, ai);	//after this, first half of ar is positive harmonic amplitudes, second half is same but negative, and ai is all zeros.
+    for (; maxHarms >= 1; maxHarms /= 2) {
+		//after this, first half of ar is positive harmonic amplitudes, second half is same but negative, and ai is all zeros.
+        defineSawtooth(tableLen, maxHarms, ar, ai);	
+
         scale = makeWaveTable(osc, tableLen, ar, ai, scale, topFreq);
         topFreq *= 2;
         if (tableLen > constantRatioLimit) // variable table size (constant oversampling but with minimum table size)
@@ -379,8 +384,8 @@ void fft(int N, vector<myFloat> &ar, vector<myFloat> &ai)
 // prepares sawtooth harmonics for ifft
 //
 void defineSawtooth(int len, int numHarmonics, vector<myFloat> &ar, vector<myFloat> &ai) {
-	if (numHarmonics > (len >> 1))
-        numHarmonics = (len >> 1);
+	if (numHarmonics > (len /2 ))
+        numHarmonics = (len /2);
     
     // clear
     for (int idx = 0; idx < len; idx++) {

@@ -21,6 +21,8 @@
 
 #define doLinearInterp 1
 #include <vector>
+
+//TODO: use vectors instead of an array
 typedef struct {
     double topFreq;
     int waveTableLen;

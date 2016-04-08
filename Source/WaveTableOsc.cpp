@@ -20,10 +20,13 @@
 
 
 WaveTableOsc::WaveTableOsc(void) {
-    phasor = 0.0;
-    phaseInc = 0.0;
-    phaseOfs = 0.5;
-    numWaveTables = 0;
+	
+    phasor = 0.0;		// phase accumulator
+    phaseInc = 0.0;		// phase increment
+    phaseOfs = 0.5;		// phase offset for PWM
+    numWaveTables = 0;	//why is this 0?
+
+	//initialize the array of waveTable structures (which could be replaced by vectors...)
     for (int idx = 0; idx < numWaveTableSlots; idx++) {
         waveTables[idx].topFreq = 0;
         waveTables[idx].waveTableLen = 0;
